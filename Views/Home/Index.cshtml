@@ -1,0 +1,119 @@
+﻿@model Import_And_Export_Data_In_Excel_In_ASP.Net_MVC.Models.ImportExcel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/CSS/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        
+        .active{
+              color:black;background-color:lightgreen;height:30px;width:100%;
+        }
+    </style>
+</head>
+<body>
+@using (Html.BeginForm("ImportExcel", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <h2 class="text-center text-uppercase pt-4">Employee Master</h2>
+
+        <span style="color: red; font-size: 15px;">* This Field Is Mandatory For The User</span>
+        <fieldset class="border p-2 scheduler-border">
+
+            <legend class="w-auto">Employee Master Form</legend>
+            <form>
+                <div class="form-group row">
+
+
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                        <input type="hidden" id="hfEmployeeID" value="0" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-10 col-lg-2 col-md-2">
+                        Employee Name:-<span style="color: red; font-size: 20px;">*</span>
+                    </label>
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                        <input type="text" id="txtEmployeeName" class="form-control" autocomplete="off" name="EmployeeName" placeholder="Employee Name" />
+                    </div>
+                    <label class="col-sm-10 col-lg-2 col-md-2">Age:-</label>
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                        <input type="text" id="txtEmployeeAge" class="form-control" autocomplete="off" name="EmployeeAge" placeholder="Employee Age" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-10 col-lg-2 col-md-2">
+                        Profile:-<span style="color: red; font-size: 20px;">*</span>
+                    </label>
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                        <input type="text" id="txtEmployeeProfile" class="form-control" autocomplete="off" name="EmployeeProfile" placeholder="Employee Profile" />
+                    </div>
+                    <label class="col-sm-10 col-lg-2 col-md-2">
+                        Sallary:-<span style="color: red; font-size: 20px;">*</span>
+                    </label>
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                        <input type="text" id="txtEmployeeSalary" class="form-control" autocomplete="off" name="EmployeeSalary" placeholder="Employee Salary" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-10 col-lg-2 col-md-2">
+                        FileUpload:-<span style="color: red; font-size: 20px;">*</span>
+                    </label>
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                        @Html.TextBoxFor(m => m.file, new { type = "file" }) 
+                        @*<input type="file" name="name" class="form-control" value="" />*@
+                    </div>
+                    <label class="col-sm-10 col-lg-2 col-md-2">
+                        <span style="color:green">@ViewBag.Result</span>
+                    </label>
+                    <div class="col-sm-10 col-lg-4 col-md-4">
+                   <label class="active"><span> Total Account Inserted In= @ViewBag.Count</span></label>
+                    </div>
+                    
+
+</div>
+ 
+                <div class="form-group row">
+                    <label class="col-sm-9 col-lg-2 col-md-2 col-form-label"></label>
+                    <div class="col-sm-10 col-lg-6 col-md-6">
+                        <input type="button" id="btnSave" value="Save" onclick="EmployeeInsertUpdateData()" class="btn btn-success btn-lg " />
+                        <input type="button" id="btnreset" value="Reset" class="btn btn-danger btn-lg " onclick="Reset()"/>
+                        <input type="submit" id="btnImport" value="Import" class="btn btn-primary btn-lg " />
+                        <input type="button" id="btnExport" value="Export" class="btn btn-warning btn-lg "  onclick="location.href='@Url.Action("ExportToExcel", "Home")'" />
+                    </div>
+                </div>
+
+            </form>
+
+        </fieldset>
+    </div>
+}
+    <div class="container">
+        <h2 class="text-center text-uppercase pt-4">Employee Record</h2>
+        <hr class="w-50 mx-auto pb-3 border-dark" />
+        <table class="table table-responsive table-stripped mytable" id="tbl">
+            <tr>
+                <th scope="col">Employee&nbsp;Name</th>
+                <th scope="col">Employee&nbsp;Age</th>
+                <th scope="col">Employee&nbsp;Profile</th>
+                <th scope="col">Employee&nbsp;Salary</th>
+          </tr>
+        </table>
+    </div>
+    <script src="~/scripts/jquery-3.4.1.min.js"></script>
+   
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/Employee.js"></script>
+
+
+</body>
+</html>
